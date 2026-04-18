@@ -13,7 +13,7 @@ function Navbar() {
 
     if (!user) return null
 
-    function isActive(path) {
+    function cls(path) {
         return location.pathname === path ? 'nav-link active' : 'nav-link'
     }
 
@@ -24,9 +24,10 @@ function Navbar() {
                 <span>AI Bridge</span>
             </Link>
             <div className="nav-links">
-                <Link to="/dashboard" className={isActive('/dashboard')}>Dashboard</Link>
-                <Link to="/opportunities" className={isActive('/opportunities')}>Opportunities</Link>
-                <Link to="/applications" className={isActive('/applications')}>Applications</Link>
+                <Link to="/dashboard" className={cls('/dashboard')}>Dashboard</Link>
+                <Link to="/opportunities" className={cls('/opportunities')}>Opportunities</Link>
+                <Link to="/applications" className={cls('/applications')}>Tracker</Link>
+                <Link to="/profile" className={cls('/profile')}>Profile</Link>
             </div>
             <div className="nav-user">
                 <span className="user-name">{user.name}</span>

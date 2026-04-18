@@ -15,7 +15,15 @@ function Dashboard() {
     }, [])
 
     if (loading) {
-        return <div className="page-container"><div className="loading-spinner">Loading dashboard...</div></div>
+        return (
+            <div className="page-container">
+                <div className="skeleton" style={{height:100,marginBottom:'1.5rem',borderRadius:16}} />
+                <div style={{display:'grid',gridTemplateColumns:'repeat(4,1fr)',gap:'1rem',marginBottom:'1.5rem'}}>
+                    {[1,2,3,4].map(i => <div key={i} className="skeleton" style={{height:110,borderRadius:16}} />)}
+                </div>
+                <div className="skeleton" style={{height:60,borderRadius:16}} />
+            </div>
+        )
     }
 
     const stats = data?.stats || {}
@@ -24,7 +32,7 @@ function Dashboard() {
     return (
         <div className="page-container">
             <div className="dashboard-welcome">
-                <h1>Welcome back, {user.name || 'there'}</h1>
+                <h1>Welcome back, {user.name || 'there'} 👋</h1>
                 <p>Here's what's happening with your opportunities</p>
             </div>
 
@@ -54,19 +62,25 @@ function Dashboard() {
                 </Link>
                 <Link to="/applications" className="action-card">
                     <span className="action-icon">📋</span>
-                    <span className="action-text">My Applications</span>
+                    <span className="action-text">Application Tracker</span>
                 </Link>
+                <Link to="/profile" className="action-card">
+                    <span className="action-icon">👤</span>
+                    <span className="action-text">Edit Profile</span>
+                </Link>
+                <a href="https://github.com/Maxiemad/AI-Bridge" target="_blank" rel="noreferrer" className="action-card">
+                    <span className="action-icon">⚡</span>
+                    <span className="action-text">View Source</span>
+                </a>
             </div>
 
             {notifications.length > 0 && (
                 <div className="notifications-section">
-                    <h2>Notifications</h2>
+                    <h2>🔔 Notifications</h2>
                     <div className="notification-list">
-                        {notifications.slice(0, 5).map((n, i) => (
+                        {notifications.slice(0, 6).map((n, i) => (
                             <div key={i} className={`notification-item urgency-${n.urgency}`}>
-                                <span className="notification-badge">
-                                    {n.type === 'deadline' ? '⏰' : '📬'}
-                                </span>
+                                <span>{n.type === 'deadline' ? '⏰' : '📬'}</span>
                                 <span>{n.message}</span>
                             </div>
                         ))}

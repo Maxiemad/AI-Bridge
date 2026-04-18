@@ -5,6 +5,7 @@ import Register from './pages/Register'
 import Dashboard from './pages/Dashboard'
 import Opportunities from './pages/Opportunities'
 import Applications from './pages/Applications'
+import Profile from './pages/Profile'
 
 function ProtectedRoute({ children }) {
     const token = localStorage.getItem('token')
@@ -19,15 +20,10 @@ function App() {
             <Routes>
                 <Route path="/login" element={<Login />} />
                 <Route path="/register" element={<Register />} />
-                <Route path="/dashboard" element={
-                    <ProtectedRoute><Dashboard /></ProtectedRoute>
-                } />
-                <Route path="/opportunities" element={
-                    <ProtectedRoute><Opportunities /></ProtectedRoute>
-                } />
-                <Route path="/applications" element={
-                    <ProtectedRoute><Applications /></ProtectedRoute>
-                } />
+                <Route path="/dashboard" element={<ProtectedRoute><Dashboard /></ProtectedRoute>} />
+                <Route path="/opportunities" element={<ProtectedRoute><Opportunities /></ProtectedRoute>} />
+                <Route path="/applications" element={<ProtectedRoute><Applications /></ProtectedRoute>} />
+                <Route path="/profile" element={<ProtectedRoute><Profile /></ProtectedRoute>} />
                 <Route path="*" element={<Navigate to="/dashboard" replace />} />
             </Routes>
         </BrowserRouter>

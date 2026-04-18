@@ -1,17 +1,17 @@
 import { useState, useEffect } from 'react'
-import { getOpportunities, applyToOpportunity } from '../services/api'
+import { getOpportunities } from '../services/api'
 import OpportunityCard from '../components/OpportunityCard'
+import ApplyModal from '../components/ApplyModal'
 
 function Opportunities() {
     const [opportunities, setOpportunities] = useState([])
     const [loading, setLoading] = useState(true)
     const [filter, setFilter] = useState('')
-    const [applying, setApplying] = useState(null)
-    const [result, setResult] = useState(null)
+    const [modalOpp, setModalOpp] = useState(null)
+    const [appliedIds, setAppliedIds] = useState(new Set())
+    const [feedback, setFeedback] = useState(null)
 
-    useEffect(() => {
-        fetchOpportunities()
-    }, [filter])
+    useEffect(() => { fetchOpportunities() }, [filter])
 
     function fetchOpportunities() {
         setLoading(true)
@@ -22,21 +22,14 @@ function Opportunities() {
             .finally(() => setLoading(false))
     }
 
-    async function handleApply(oppId) {
-        setApplying(oppId)
-        setResult(null)
-        try {
-            const res = await applyToOpportunity(oppId)
-            setResult({ type: 'success', id: oppId, data: res.data })
-        } catch (err) {
-            setResult({ type: 'error', id: oppId, message: err.response?.data?.error || 'Failed to apply' })
-        } finally {
-            setApplying(null)
-        }
+    function handleApplyClick(opp) {
+        setModalOpp(opp)
     }
 
-    function closeResult() {
-        setResult(null)
+    function handleApplied(oppId) {
+        setAppliedIds(prev => new Set([...prev, oppId]))
+        setFeedback({ type: 'success', message: 'Application submitted! Check your Applications page.' })
+        setTimeout(() => setFeedback(null), 4000)
     }
 
     const types = ['hackathon', 'internship', 'grant', 'fellowship', 'competition', 'job']
@@ -49,55 +42,45 @@ function Opportunities() {
             </div>
 
             <div className="filter-bar">
-                <button
-                    className={`filter-btn ${filter === '' ? 'active' : ''}`}
-                    onClick={() => setFilter('')}
-                >
-                    All
-                </button>
+                <button className={`filter-btn ${filter === '' ? 'active' : ''}`} onClick={() => setFilter('')}>All</button>
                 {types.map(t => (
-                    <button
-                        key={t}
-                        className={`filter-btn ${filter === t ? 'active' : ''}`}
-                        onClick={() => setFilter(t)}
-                    >
+                    <button key={t} className={`filter-btn ${filter === t ? 'active' : ''}`} onClick={() => setFilter(t)}>
                         {t.charAt(0).toUpperCase() + t.slice(1)}
                     </button>
                 ))}
             </div>
 
-            {result && (
-                <div className={`result-banner ${result.type}`}>
-                    {result.type === 'success' ? (
-                        <div>
-                            <strong>Application created!</strong> Check your applications page for the generated cover letter and email.
-                            <button className="close-btn" onClick={closeResult}>✕</button>
-                        </div>
-                    ) : (
-                        <div>
-                            <strong>Error:</strong> {result.message}
-                            <button className="close-btn" onClick={closeResult}>✕</button>
-                        </div>
-                    )}
+            {feedback && (
+                <div className={`result-banner ${feedback.type}`}>
+                    <strong>{feedback.message}</strong>
+                    <button className="close-btn" onClick={() => setFeedback(null)}>✕</button>
                 </div>
             )}
 
             {loading ? (
-                <div className="loading-spinner">Loading opportunities...</div>
+                <div>{[1,2,3].map(i => <div key={i} className="skeleton skeleton-card" />)}</div>
             ) : opportunities.length === 0 ? (
-                <div className="empty-state">No opportunities found</div>
+                <div className="empty-state"><p>No opportunities found</p></div>
             ) : (
                 <div className="opportunity-list">
                     {opportunities.map(opp => (
                         <OpportunityCard
                             key={opp._id}
                             opportunity={opp}
-                            onApply={() => handleApply(opp._id)}
-                            isApplying={applying === opp._id}
-                            applied={result?.type === 'success' && result?.id === opp._id}
+                            onApply={() => handleApplyClick(opp)}
+                            isApplying={false}
+                            applied={appliedIds.has(opp._id)}
                         />
                     ))}
                 </div>
+            )}
+
+            {modalOpp && (
+                <ApplyModal
+                    opportunity={modalOpp}
+                    onClose={() => setModalOpp(null)}
+                    onApplied={handleApplied}
+                />
             )}
         </div>
     )
