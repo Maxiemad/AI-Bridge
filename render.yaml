@@ -1,6 +1,6 @@
 services:
   - type: web
-    name: ai-bridge-backend
+    name: ai-WingMan-backend
     runtime: node
     rootDir: backend
     buildCommand: npm install

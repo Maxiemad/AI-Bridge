@@ -37,7 +37,7 @@ const opportunities = [
         organization: 'MIT',
         tags: ['hackathon', 'ai', 'machine learning', 'web development', 'mobile'],
         deadline: new Date(Date.now() + 10 * 24 * 60 * 60 * 1000),
-        location: 'Cambridge, MA',
+        location: 'CamWingMan, MA',
         stipend: ''
     },
     {

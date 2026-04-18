@@ -1,8 +1,8 @@
-# AI Bridge – Opportunity Sniper
+# AI WingMan – Opportunity Sniper
 
 ## Overview
 
-AI Bridge is a full-stack application that helps users discover hidden opportunities like hackathons, internships, grants, and collaborations. It goes beyond just listing them — the system uses AI to rank what matters most to you and can generate personalized applications, cover letters, and emails on the spot.
+AI WingMan is a full-stack application that helps users discover hidden opportunities like hackathons, internships, grants, and collaborations. It goes beyond just listing them — the system uses AI to rank what matters most to you and can generate personalized applications, cover letters, and emails on the spot.
 
 Think of it as your personal opportunity wingman.
 
@@ -10,7 +10,7 @@ Think of it as your personal opportunity wingman.
 
 Every day, thousands of opportunities go unnoticed. They're scattered across LinkedIn, Twitter, university boards, company websites. By the time someone finds them, the deadline has passed or the application window is tiny. Even when people do find relevant ones, writing applications from scratch is time-consuming and exhausting.
 
-## What AI Bridge Does
+## What AI WingMan Does
 
 - Aggregates opportunities from multiple sources into a single feed
 - Ranks them based on your skills, interests, and past activity using an AI scoring engine

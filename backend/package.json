@@ -1,7 +1,7 @@
 {
-  "name": "ai-bridge-backend",
+  "name": "ai-WingMan-backend",
   "version": "1.0.0",
-  "description": "AI Bridge - Opportunity Sniper Backend",
+  "description": "AI WingMan - Opportunity Sniper Backend",
   "main": "src/app.js",
   "scripts": {
     "start": "node src/app.js",

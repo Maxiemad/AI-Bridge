@@ -1,4 +1,4 @@
-# AI Bridge – Opportunity Sniper
+# AI WingMan – Opportunity Sniper
 
 An intelligent system that finds opportunities (hackathons, internships, grants, fellowships) and helps users act on them through AI-powered application generation and tracking.
 
@@ -64,7 +64,7 @@ An intelligent system that finds opportunities (hackathons, internships, grants,
 ## Project Structure
 
 ```
-ai-bridge/
+ai-WingMan/
 ├── backend/
 │   ├── src/
 │   │   ├── controllers/        # Request handlers
